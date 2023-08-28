@@ -7,7 +7,7 @@ const FaceRecognition = ({ imageUrl, box }) => {
         {imageUrl ? (
           <>
             <img
-              className="rounded-lg shadow-2xl shadow-blue w-96"
+              className="rounded-lg shadow-2xl shadow-blue w-[32vh]"
               src={imageUrl}
               alt="input image"
               id="image"
