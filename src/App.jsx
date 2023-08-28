@@ -49,18 +49,25 @@ function App() {
   const calculateFaceLocation = (data) => {
     const faceLocation =
       data.outputs[0].data.regions[0].region_info.bounding_box;
+    console.log(
+      "🚀 ~ file: App.jsx:51 ~ calculateFaceLocation ~ faceLocation:",
+      faceLocation
+    );
     const image = document.getElementById("image");
     const width = Number(image.width);
     const height = Number(image.height);
+    const rightCol = faceLocation.right_col * width;
+    const bottomRow = faceLocation.bottom_row * height;
     return {
       leftcol: faceLocation.left_col * width,
-      rightcol: width - faceLocation.right_col * width,
+      rightcol: width - rightCol,
       toprow: faceLocation.top_row * height,
-      bottomrow: height - faceLocation.bottom_row * height,
+      bottomrow: height - bottomRow,
     };
   };
 
   const faceBox = (box) => {
+    console.log("🚀 ~ file: App.jsx:64 ~ faceBox ~ box:", box);
     setBox(box);
   };
 
