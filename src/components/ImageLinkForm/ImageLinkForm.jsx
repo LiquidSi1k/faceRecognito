@@ -1,6 +1,6 @@
 const ImageLinkForm = ({ onInputChange, onButtonSubmit }) => {
   return (
-    <div className="m-2 my-4 py-4 rounded-lg shadow-[-10px_-10px_30px_4px_rgba(0,0,0,0.1),_10px_10px_30px_4px_rgba(45,78,255,0.15)] bg-gradient-to-r from-gray-700 via-gray-900 to-black">
+    <div className="m-2 my-4 py-4 rounded-lg shadow-[-10px_-10px_30px_4px_rgba(0,0,0,0.1),_10px_10px_30px_4px_rgba(45,78,255,0.15)] bg-gradient-to-r from-gray-700 via-gray-900 to-black w-[60vw] m-auto">
       <p className="p-2">Face detection App</p>
       <div className="p-2 ">
         <input

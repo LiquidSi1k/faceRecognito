@@ -1,0 +1,25 @@
+.bounding-box {
+  position: absolute;
+  box-shadow: rgba(3, 102, 214, 0.3) 0px 0px 0px 3px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  cursor: pointer;
+  -webkit-animation: blink 0.7s infinite alternate;
+  animation: blink 2s infinite alternate;
+  border-radius: 1vmin;
+}
+
+@-webkit-keyframes blink {
+  100% {
+    box-shadow: 0 0 3px #fff, 0 0 10px #fff, 0 0 20px #fff, 0 0 40px #0ba9ca,
+      0 0 70px #0ba9ca, 0 0 80px #0ba9ca;
+  }
+}
+
+@keyframes blink {
+  100% {
+    box-shadow: 0 0 3px #fff, 0 0 10px #fff, 0 0 20px #fff, 0 0 40px #0ba9ca,
+      0 0 70px #0ba9ca, 0 0 80px #0ba9ca;
+  }
+}

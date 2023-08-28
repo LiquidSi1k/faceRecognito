@@ -3,18 +3,19 @@ import Navigation from "./components/Navigation/Navigation";
 import Logo from "./components/Logo/Logo";
 import ImageLinkForm from "./components/ImageLinkForm/ImageLinkForm";
 import Rank from "./components/Rank/Rank";
+import FaceRecognition from "./components/FaceRecognition/FaceRecognition";
 import ParticlesBg from "particles-bg";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 function App() {
   const [userInput, setNewInput] = useState("");
+  const [box, setBox] = useState("");
   const MODEL_ID = "face-detection";
 
   const returnClarifaiReqOpt = (imageUrl) => {
     const PAT = "a2cdea03e55d422a8e1f27f99d40641f";
     const USER_ID = "kal_serio";
     const APP_ID = "FaceRecognito";
-
     const IMAGE_URL = imageUrl;
 
     const raw = JSON.stringify({
@@ -45,31 +46,42 @@ function App() {
     return requestOptions;
   };
 
+  const calculateFaceLocation = (data) => {
+    const faceLocation =
+      data.outputs[0].data.regions[0].region_info.bounding_box;
+    const image = document.getElementById("image");
+    const width = Number(image.width);
+    const height = Number(image.height);
+    return {
+      leftcol: faceLocation.left_col * width,
+      rightcol: width - faceLocation.right_col * width,
+      toprow: faceLocation.top_row * height,
+      bottomrow: height - faceLocation.bottom_row * height,
+    };
+  };
+
+  const faceBox = (box) => {
+    setBox(box);
+  };
+
   const onInputChange = (e) => {
     e.preventDefault();
     setNewInput(e.target.value);
-    console.log(e.target.value);
   };
 
   const onButtonSubmit = () => {
-    console.log("clicked");
+    fetch(
+      "https://api.clarifai.com/v2/models/" + MODEL_ID + "/outputs",
+      returnClarifaiReqOpt(userInput)
+    )
+      .then((response) => response.json())
+      .then((result) => faceBox(calculateFaceLocation(result)))
+      .catch((error) => console.log("error", error));
   };
-
-  useEffect(() => {
-    if (userInput) {
-      fetch(
-        "https://api.clarifai.com/v2/models/" + MODEL_ID + "/outputs",
-        returnClarifaiReqOpt(userInput)
-      )
-        .then((response) => response.json())
-        .then((result) => console.log(result))
-        .catch((error) => console.log("error", error));
-    }
-  }, [userInput]);
 
   return (
     <>
-      <div className="App">
+      <div className="app">
         <ParticlesBg type="lines" bg={true} />
         <Navigation />
         <Logo />
@@ -78,7 +90,7 @@ function App() {
           onInputChange={onInputChange}
           onButtonSubmit={onButtonSubmit}
         />
-        {/* <FaceRecognition /> */}
+        <FaceRecognition box={box} imageUrl={userInput} />
       </div>
     </>
   );

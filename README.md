@@ -7,7 +7,7 @@ Tech Stack
 1. HTML
 2. CSS
 3. JS
-4. React
+4. Vite + React
 5. Tailwind
 6. Clarifai AI API
 7. Tilt NPM package
